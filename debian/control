@@ -1,0 +1,18 @@
+Source: hlbackup
+Section: admin
+Priority: optional
+Maintainer: Taku YASUI <tach@debian.or.jp>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.2
+
+Package: hlbackup
+Architecture: all
+Depends: rsync
+Description: Backup script using hardlink and rsync
+ hlbackup is backup tool using hardlink and rsync.
+ .
+  * backup once per day (backup to YYYY/MM/DD directory)
+  * copy as hardlink from backup of yesterday
+  * overwrite from original using rsync
+ .
+ hlbackup is rewrite of pdumpfs using bash script and rsync.

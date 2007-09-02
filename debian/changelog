@@ -1,0 +1,9 @@
+hlbackup (1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Taku YASUI <tach@debian.or.jp>  Sun, 02 Sep 2007 22:27:07 +0900
+
+Local variables:
+mode: debian-changelog
+End:

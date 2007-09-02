@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+  
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+install/hlbackup::
+	install -m 0755 hlbackup $(DEB_DESTDIR)/usr/sbin/hlbackup
+	install -m 0644 run-backup $(DEB_DESTDIR)/etc/hlbackup/run-backup

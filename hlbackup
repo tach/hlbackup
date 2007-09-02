@@ -1,0 +1,60 @@
+#!/bin/sh
+#
+# Backup script using hardlink and rsync
+
+LOGDIR=/var/log/backup
+BASE=/backup
+TODAY=`date +%Y/%m/%d`
+RSYNC='/usr/bin/rsync -e ssh -avHS --numeric-ids --delete --delete-excluded'
+
+test -f /etc/default/hlbackup && . /etc/default/hlbackup
+
+backup_begin() {
+    local host=$1
+
+    test -d ${BASE}/${host}/${TODAY} && return
+    if [ ! -d ${BASE}/${host}/latest ]; then
+        pushd ${BASE}/${host} > /dev/null
+        rm -f latest
+        ln -s `find -maxdepth 3 -type d -path "./????/??/??"  | sort -n | tail -1` latest
+        popd > /dev/null
+    fi
+    mkdir -p ${BASE}/${host}/${TODAY}
+    if [ -L ${BASE}/${host}/latest -a -d ${BASE}/${host}/latest ]; then
+        cp -a --link ${BASE}/${host}/latest/* ${BASE}/${host}/${TODAY}
+    fi
+}
+
+backup_end() {
+    local host=$1
+
+    pushd ${BASE}/${host} > /dev/null
+    rm -f latest
+    ln -sf ${TODAY} latest
+    popd > /dev/null
+}
+
+backup() {
+    local host=`echo $1 | sed -e 's/:.*//'`
+    logfile=$LOGDIR/`echo $1 | sed 's/:.*//'`/`basename $1`.log
+    src=$1
+    shift
+
+    backup_begin $host
+    mkdir -p `dirname $logfile`
+    savelog -m 0640 -u root -g adm -t $logfile > /dev/null
+    echo "starting backup: $src" | logger -i -t backup -p local0.info
+    $RSYNC $src ${BASE}/${host}/${TODAY}/ $* > $logfile
+    if [ $? = 0 -o $? = 24 ]; then
+      backup_end $host
+      echo "backup completed: $src" | logger -i -t backup -p local0.info
+    else
+      echo "backup failed: $src" | logger -i -t backup -p local0.err
+    fi
+}
+
+if [ -n "$1" ]; then
+    backup $*
+else
+    . /etc/hlbackup/run-backup
+fi

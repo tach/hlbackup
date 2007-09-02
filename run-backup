@@ -1,0 +1,16 @@
+# /etc/hlbackup/run-backup
+# settings for hlbackup
+#
+# HOW TO WRITE THIS FILE
+#
+# This file is shell script read by /usr/sbin/hlbackup
+# You can use bash syntax in this script.
+#
+# To backup server:/root
+# backup server:/root
+#
+# To backup server:/var without some files/directories
+# You can use rsync options
+# backup server:/root --exclude-from=/backup/exclude/var.ex
+
+# YOU SHOULD WRITE YOUR SETTINGS BELOW THIS LINE
