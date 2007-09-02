@@ -2,7 +2,7 @@
 #
 # Backup script using hardlink and rsync
 
-LOGDIR=/var/log/backup
+LOGDIR=/var/log/hlbackup
 BASE=/backup
 TODAY=`date +%Y/%m/%d`
 RSYNC='/usr/bin/rsync -e ssh -avHS --numeric-ids --delete --delete-excluded'
@@ -43,6 +43,7 @@ backup() {
     backup_begin $host
     mkdir -p `dirname $logfile`
     savelog -m 0640 -u root -g adm -t $logfile > /dev/null
+    test "`hostname`" = "$host" && src=`echo $src | sed -e 's/^[^/]*//'`
     echo "starting backup: $src" | logger -i -t backup -p local0.info
     $RSYNC $src ${BASE}/${host}/${TODAY}/ $* > $logfile
     if [ $? = 0 -o $? = 24 ]; then
