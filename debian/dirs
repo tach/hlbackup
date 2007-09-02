@@ -1,4 +1,5 @@
 etc/hlbackup
 etc/default
 usr/sbin
+usr/share/lintian/overrides
 backup
