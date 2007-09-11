@@ -1,3 +1,9 @@
+hlbackup (2) unstable; urgency=low
+
+  * Fix cron.d to run hlbackup-clean correctly
+
+ -- Taku YASUI <tach@debian.or.jp>  Tue, 11 Sep 2007 14:06:04 +0900
+
 hlbackup (1) unstable; urgency=low
 
   * Initial release.
