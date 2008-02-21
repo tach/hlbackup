@@ -36,7 +36,7 @@ backup_end() {
 
 backup() {
     local host=`echo $1 | sed -e 's/:.*//'`
-    logfile=$LOGDIR/`echo $1 | sed 's/:.*//'`/`basename $1`.log
+    logfile=$LOGDIR/$host/`basename $1`.log
     src=$1
     shift
 
@@ -55,6 +55,10 @@ backup() {
 }
 
 if [ -n "$1" ]; then
+    if echo "$1" | grep -vq :\/; then
+        echo "Usage: $0 hostname:/dirname" 1>&2
+        exit 1
+    fi
     backup $*
 else
     . /etc/hlbackup/run-backup
