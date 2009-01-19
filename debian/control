@@ -7,7 +7,7 @@ Standards-Version: 3.8.0
 
 Package: hlbackup
 Architecture: all
-Depends: rsync, ruby
+Depends: rsync, ruby, ${misc:Depends}
 Description: Backup script using hardlink and rsync
  hlbackup is backup tool using hardlink and rsync.
  .
