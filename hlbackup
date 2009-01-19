@@ -6,6 +6,7 @@ LOGDIR=/var/log/hlbackup
 BASE=/backup
 TODAY=`date +%Y/%m/%d`
 RSYNC='/usr/bin/rsync -aqHS --numeric-ids --delete --delete-excluded'
+NAME=hlbackup
 
 test -f /etc/default/hlbackup && . /etc/default/hlbackup
 
@@ -13,7 +14,7 @@ errormsg() {
 	local msg=$1
 
 	echo "backup failed: $msg" 1>&2
-	echo "backup failed: $msg" | logger -i -t backup -p local0.err
+	echo "backup failed: $msg" | logger -i -t $NAME -p local0.err
 }
 
 backup_end() {
@@ -55,13 +56,13 @@ backup() {
 	fi
 
 	# run backup
-	echo "starting backup: $src" | logger -i -t backup -p local0.info
+	echo "starting backup: $src" | logger -i -t $NAME -p local0.info
 	$RSYNC --log-file=$logfile $linkdest $src ${BASE}/${host}/${TODAY}/ $*
 	if [ $? = 0 -o $? = 24 ]; then
 		backup_end $host
-		echo "backup completed: $src" | logger -i -t backup -p local0.info
+		echo "backup completed: $src" | logger -i -t $NAME -p local0.info
 	else
-		errormsg $src | logger -i -t backup -p local0.err
+		errormsg $src | logger -i -t $NAME -p local0.err
 	fi
 }
 
