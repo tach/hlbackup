@@ -17,15 +17,6 @@ errormsg() {
 	echo "backup failed: $msg" | logger -i -t $NAME -p local0.err
 }
 
-backup_end() {
-    local host=$1
-
-    pushd ${BASE}/${host} > /dev/null
-    rm -f latest
-    ln -sf ${TODAY} latest
-    popd > /dev/null
-}
-
 backup() {
 	local host=`echo $1 | sed -e 's/:.*//'`
 	logfile=$LOGDIR/$host/`basename $1`.log
@@ -59,6 +50,8 @@ backup() {
 	echo "starting backup: $src" | logger -i -t $NAME -p local0.info
 	$RSYNC --log-file=$logfile $linkdest $src ${BASE}/${host}/${TODAY}/ $*
 	if [ $? = 0 -o $? = 24 ]; then
+		rm -f $BASE/$host/latest
+		ln -sf $TODAY $BASE/$host/latest
 		backup_end $host
 		echo "backup completed: $src" | logger -i -t $NAME -p local0.info
 	else
