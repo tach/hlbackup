@@ -2,8 +2,9 @@ hlbackup (4) unstable; urgency=low
 
   * Use rsync "--link-dest" option instead of "cp --link" command
   * add RSYNC_RSH environment variable to set ssh option
+  * New standards version: 3.8.0
 
- -- Taku YASUI <tach@debian.or.jp>  Tue, 20 Jan 2009 02:25:37 +0900
+ -- Taku YASUI <tach@debian.or.jp>  Tue, 20 Jan 2009 02:27:11 +0900
 
 hlbackup (3) unstable; urgency=low
 
