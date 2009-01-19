@@ -52,7 +52,6 @@ backup() {
 	if [ $? = 0 -o $? = 24 ]; then
 		rm -f $BASE/$host/latest
 		ln -sf $TODAY $BASE/$host/latest
-		backup_end $host
 		echo "backup completed: $src" | logger -i -t $NAME -p local0.info
 	else
 		errormsg $src | logger -i -t $NAME -p local0.err
