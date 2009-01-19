@@ -1,1 +1,4 @@
 # default file for hlbackup
+
+# use ssh batchmode and set timeout
+export RSYNC_RSH='/usr/bin/ssh -o BatchMode=yes -o ServerAliveInterval=60 -o SetupTimeOut=60'

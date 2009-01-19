@@ -5,7 +5,7 @@
 LOGDIR=/var/log/hlbackup
 BASE=/backup
 TODAY=`date +%Y/%m/%d`
-RSYNC='/usr/bin/rsync -e ssh -aqHS --numeric-ids --delete --delete-excluded'
+RSYNC='/usr/bin/rsync -aqHS --numeric-ids --delete --delete-excluded'
 
 test -f /etc/default/hlbackup && . /etc/default/hlbackup
 
