@@ -16,8 +16,7 @@ require 'getoptlong'
 require 'date'
 require 'ftools'
 
-VERS = '$Id$'.sub(/^.*,v ([\d\.]+) .*$/, "\\1")
-NAME = '$Id$'.sub(/^[^:]: ([-\w]+) .*$/, "\\1")
+(NAME, VERS) = '$Id$'.scan(/^\$Id: ([-\w]+) (\d+)/).flatten
 DEFAULT = { 'year' => 2,
 	    'month' => 6,
 	    'week' => 6,
@@ -89,8 +88,9 @@ OPTIONS:
   --verbose,           -v: verbose output
   --force,             -f: force to remove write-protected files/directories
   --version,           -V: show software version
+
 KEEPARGS: [digitY][digitM][digitW][digitD]
-  ex: --keep 2Y6M6W7D (2years, 6months, 6weeks, 7days, default)
+  e.g. --keep 2Y6M6W7D (2years, 6months, 6weeks, 7days, default)
 _EOT
   exit
 end
