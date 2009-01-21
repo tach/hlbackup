@@ -1,9 +1,9 @@
 #!/usr/bin/ruby
 #
-# pdumpfs-clean: cleanup old backup directory for pdumpfs
+# hlbackup-clean: cleanup old backup directory for hlbackup/pdumpfs
 #
 # Usage:
-#   pdumpfs-clean <pdumpfs backuped directories...>
+#   hlbackup-clean <hlbackup/pdumpfs backuped directories...>
 #
 # Copyright(C) 2003 Taku YASUI <tach@debian.or.jp>, All rights reserved.
 # This is free software with ABSOLUTELY NO WARRANTY.
@@ -16,7 +16,8 @@ require 'getoptlong'
 require 'date'
 require 'ftools'
 
-VERS = '$Id: pdumpfs-clean 395 2005-03-28 18:26:21Z tach $'.sub(/^.*,v ([\d\.]+) .*$/, "\\1")
+VERS = '$Id$'.sub(/^.*,v ([\d\.]+) .*$/, "\\1")
+NAME = '$Id$'.sub(/^[^:]: ([-\w]+) .*$/, "\\1")
 DEFAULT = { 'year' => 2,
 	    'month' => 6,
 	    'week' => 6,
@@ -80,7 +81,7 @@ end
 
 def show_usage
   print <<_EOT
-Usage: pdumpfs-clean [OPTIONS] directories...
+Usage: #{NAME} [OPTIONS] directories...
 OPTIONS:
   --help,              -h: show this help
   --keep KEEPARGS,     -k: use KEEPARGS to decide delete directories
@@ -96,7 +97,7 @@ end
 
 def show_version
   print <<_EOT
-pdumpfs-clean version #{VERS}
+#{NAME} version #{VERS}
 Copyright (C) 2003 Taku YASUI <tach@debian.or.jp>
 
 This program is free software; you can redistribute it and/or modify
