@@ -25,6 +25,7 @@ backup() {
 	local host=`echo $1 | sed -e 's/:.*//'`
 	logfile=$LOGDIR/$host/`basename $1`.log
 	src=$1
+	srcname=`basename $src`
 	shift
 
 	# prepare backup
@@ -38,14 +39,14 @@ backup() {
 	mkdir -p ${BASE}/${host}/${TODAY}
 
 	# find "--link-dest" argument
-    if [ -d ${BASE}/${host}/latest/`basename $src` -a \
-	     ! ${BASE}/${host}/latest/`basename $src` -ef ${BASE}/${host}/${TODAY}/`basename $src` ]; then
-		linkdest=--link-dest=${BASE}/${host}/latest/`basename $src`/
+    if [ -d ${BASE}/${host}/latest/$srcname -a \
+	     ! ${BASE}/${host}/latest/$srcname -ef ${BASE}/${host}/${TODAY}/$srcname ]; then
+		linkdest=--link-dest=${BASE}/${host}/latest/$srcname/
 	else
-		linkdestdir=`find ${BASE}/${host} -maxdepth 3 -type d -path "${BASE}/${host}/????/??/??" | sort -n | tail -1`
+		linkdestdir=`find ${BASE}/${host} -maxdepth 4 -type d -path "${BASE}/${host}/????/??/??/$srcname" | sort -n | tail -1`
 		if [ -n "$linkdestdir" -a \
-		     ! ${BASE}/${host}/latest/`basename $src` -ef $linkdestdir/`basename $src` ]; then
-			linkdest=--link-dest=$linkdestdir/`basename $src`/
+		     ! ${BASE}/${host}/latest/$srcname -ef $linkdestdir ]; then
+			linkdest=--link-dest=$linkdestdir/
 		else
 			linkdest=""
 		fi
@@ -53,7 +54,7 @@ backup() {
 
 	# run backup
 	echo "starting backup: $src" | logger -i -t $NAME -p local0.info
-	$RSYNC --log-file=$logfile $linkdest $src/ ${BASE}/${host}/${TODAY}/`basename $src`/ $*
+	$RSYNC --log-file=$logfile $linkdest $src/ ${BASE}/${host}/${TODAY}/$srcname/ $*
 	if [ $? = 0 -o $? = 24 ]; then
 		rm -f $BASE/$host/latest
 		ln -sf $TODAY $BASE/$host/latest
