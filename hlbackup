@@ -8,6 +8,10 @@ TODAY=`date +%Y/%m/%d`
 RSYNC='/usr/bin/rsync -aqHS --numeric-ids --delete --delete-excluded'
 NAME=hlbackup
 
+# lower priority
+which ionice > /dev/null && ionice -c 3 -p $$
+which renice > /dev/null && renice 19 -p $$ >/dev/null
+
 test -f /etc/default/hlbackup && . /etc/default/hlbackup
 
 errormsg() {
