@@ -114,6 +114,10 @@ def main
   keepdirs = create_keepdirs(parse_keep(opts['keep']))
   keeped = []
 
+  # lower priority
+  Process.setpriority(Process::PRIO_PROCESS, $$, 19)
+  system('ionice', '-c3', "-p#{$$}")
+
   ARGV.each do |basedir|
     Dir.glob("#{basedir}/[0-9][0-9][0-9][0-9]/[0-1][0-9]/[0-3][0-9]").sort.each do |dir|
       next if ( ! File.directory?(dir) )
