@@ -35,16 +35,17 @@ backup() {
 		errormsg "$src: could not write to directory: $BASE/$host"
 		return
 	fi
+	mkdir -p ${BASE}/${host}/${TODAY}
 
 	# find "--link-dest" argument
     if [ -d ${BASE}/${host}/latest/`basename $src` -a \
 	     ! ${BASE}/${host}/latest/`basename $src` -ef ${BASE}/${host}/${TODAY}/`basename $src` ]; then
-		linkdest="--link-dest=${BASE}/${host}/latest/`basename $src`"
+		linkdest=--link-dest=${BASE}/${host}/latest/`basename $src`/
 	else
 		linkdestdir=`find ${BASE}/${host} -maxdepth 3 -type d -path "${BASE}/${host}/????/??/??" | sort -n | tail -1`
 		if [ -n "$linkdestdir" -a \
 		     ! ${BASE}/${host}/latest/`basename $src` -ef $linkdestdir/`basename $src` ]; then
-			linkdest="--link-dest=$linkdestdir"
+			linkdest=--link-dest=$linkdestdir/`basename $src`/
 		else
 			linkdest=""
 		fi
@@ -52,7 +53,7 @@ backup() {
 
 	# run backup
 	echo "starting backup: $src" | logger -i -t $NAME -p local0.info
-	$RSYNC --log-file=$logfile $linkdest $src ${BASE}/${host}/${TODAY}/ $*
+	$RSYNC --log-file=$logfile $linkdest $src/ ${BASE}/${host}/${TODAY}/`basename $src`/ $*
 	if [ $? = 0 -o $? = 24 ]; then
 		rm -f $BASE/$host/latest
 		ln -sf $TODAY $BASE/$host/latest
