@@ -1,3 +1,9 @@
+hlbackup (5) unstable; urgency=low
+
+  * Add install script other than Debian
+
+ -- Taku YASUI <tach@debian.or.jp>  Fri, 23 Jan 2009 02:59:31 +0900
+
 hlbackup (4) unstable; urgency=low
 
   * Use rsync "--link-dest" option instead of "cp --link" command
