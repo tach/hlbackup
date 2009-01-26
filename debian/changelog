@@ -2,8 +2,10 @@ hlbackup (6) unstable; urgency=low
 
   * Fix error when some variables are empty
   * Add error check: src and host are exist
+  * Fix: --link-dest will be empty when backup hostname directories
+    are symlink
 
- -- Taku YASUI <tach@debian.or.jp>  Mon, 26 Jan 2009 16:25:04 +0900
+ -- Taku YASUI <tach@debian.or.jp>  Mon, 26 Jan 2009 16:28:02 +0900
 
 hlbackup (5) unstable; urgency=low
 

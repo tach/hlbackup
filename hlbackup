@@ -51,7 +51,7 @@ backup() {
 	     ! "${BASE}/${host}/latest/$srcname" -ef "${BASE}/${host}/${TODAY}/$srcname" ]; then
 		linkdest=--link-dest=${BASE}/${host}/latest/$srcname/
 	else
-		linkdestdir=`find ${BASE}/${host} -maxdepth 4 -type d -path "${BASE}/${host}/????/??/??/$srcname" | sort -n | tail -1`
+		linkdestdir=`find ${BASE}/${host}/ -maxdepth 4 -type d -path "${BASE}/${host}/????/??/??/$srcname" | sort -n | tail -1`
 		if [ -n "$linkdestdir" -a \
 		     ! "${BASE}/${host}/latest/$srcname" -ef "$linkdestdir" ]; then
 			linkdest=--link-dest=$linkdestdir/
