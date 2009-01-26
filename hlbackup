@@ -32,20 +32,20 @@ backup() {
 	mkdir -p `dirname $logfile`
 	savelog -q -m 0640 -u root -g adm -t $logfile
 	test "`hostname`" = "$host" && src=`echo $src | sed -e 's/^[^/]*//'`
-	if [ ! -d $BASE/$host -o ! -w $BASE/$host ]; then
+	if [ ! -d "$BASE/$host" -o ! -w "$BASE/$host" ]; then
 		errormsg "$src: could not write to directory: $BASE/$host"
 		return
 	fi
 	mkdir -p ${BASE}/${host}/${TODAY}
 
 	# find "--link-dest" argument
-    if [ -d ${BASE}/${host}/latest/$srcname -a \
-	     ! ${BASE}/${host}/latest/$srcname -ef ${BASE}/${host}/${TODAY}/$srcname ]; then
+    if [ -d "${BASE}/${host}/latest/$srcname" -a \
+	     ! "${BASE}/${host}/latest/$srcname" -ef "${BASE}/${host}/${TODAY}/$srcname" ]; then
 		linkdest=--link-dest=${BASE}/${host}/latest/$srcname/
 	else
 		linkdestdir=`find ${BASE}/${host} -maxdepth 4 -type d -path "${BASE}/${host}/????/??/??/$srcname" | sort -n | tail -1`
 		if [ -n "$linkdestdir" -a \
-		     ! ${BASE}/${host}/latest/$srcname -ef $linkdestdir ]; then
+		     ! "${BASE}/${host}/latest/$srcname" -ef "$linkdestdir" ]; then
 			linkdest=--link-dest=$linkdestdir/
 		else
 			linkdest=""
