@@ -23,8 +23,16 @@ errormsg() {
 
 backup() {
 	local host=`echo $1 | sed -e 's/:.*//'`
+	if [ -z "$host" ]; then
+		errormsg "$src: could not find target hostname"
+		return
+	fi
 	logfile=$LOGDIR/$host/`basename $1`.log
-	src=$1
+	src=`echo $1 | sed -e 's/\/*$//'`
+	if [ -z "$src" ]; then
+		errormsg "could not find source (e.g. hostname:/target/directory)"
+		return
+	fi
 	srcname=`basename $src`
 	shift
 
