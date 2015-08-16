@@ -1,8 +1,11 @@
 #!/usr/bin/make -f
-  
-include /usr/share/cdbs/1/rules/debhelper.mk
 
-install/hlbackup::
+DEB_DESTDIR = $$(pwd)/debian/hlbackup
+
+%:
+	dh $@
+
+override_dh_auto_install:
 	install -m 0755 hlbackup $(DEB_DESTDIR)/usr/sbin/hlbackup
 	install -m 0755 hlbackup-clean $(DEB_DESTDIR)/usr/sbin/hlbackup-clean
 	install -m 0644 run-backup $(DEB_DESTDIR)/etc/hlbackup/run-backup
