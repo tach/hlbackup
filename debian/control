@@ -4,6 +4,8 @@ Priority: optional
 Maintainer: Taku YASUI <tach@debian.org>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.1
+Vcs-Browser: https://github.com/tach/hlbackup
+Vcs-Git: https://github.com/tach/hlbackup.git
 
 Package: hlbackup
 Architecture: all

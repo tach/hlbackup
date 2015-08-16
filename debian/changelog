@@ -5,6 +5,7 @@ hlbackup (7) unstable; urgency=low
   * Remove cdbs build dependency
   * New style package: 3.0 (native)
   * New Standards-Version: 3.9.1 (for squeeze)
+  * Add vcs information to debian/control
 
  -- Taku YASUI <tach@debian.org>  Sun, 16 Aug 2015 10:07:59 +0900
 
