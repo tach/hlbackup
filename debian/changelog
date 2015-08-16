@@ -2,6 +2,9 @@ hlbackup (7) unstable; urgency=low
 
   * Change maintainer email address to <tach@debian.org>
   * Minor COPYING file update
+  * Remove cdbs build dependency
+  * New style package: 3.0 (quilt)
+  * New Standards-Version: 3.9.1 (for squeeze)
 
  -- Taku YASUI <tach@debian.org>  Sun, 16 Aug 2015 10:07:59 +0900
 
