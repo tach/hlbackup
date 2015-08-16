@@ -1,6 +1,7 @@
 hlbackup (7) unstable; urgency=low
 
   * Change maintainer email address to <tach@debian.org>
+  * Minor COPYING file update
 
  -- Taku YASUI <tach@debian.org>  Sun, 16 Aug 2015 10:07:59 +0900
 
