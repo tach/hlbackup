@@ -1,6 +1,6 @@
 Source: hlbackup
 Section: admin
-Priority: optional
+Priority: extra
 Maintainer: Taku YASUI <tach@debian.org>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.1
