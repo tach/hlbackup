@@ -1,7 +1,7 @@
 Source: hlbackup
 Section: admin
 Priority: optional
-Maintainer: Taku YASUI <tach@debian.or.jp>
+Maintainer: Taku YASUI <tach@debian.org>
 Build-Depends: debhelper (>= 4.0.0), cdbs
 Standards-Version: 3.8.0
 

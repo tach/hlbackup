@@ -1,3 +1,9 @@
+hlbackup (7) unstable; urgency=low
+
+  * Change maintainer email address to <tach@debian.org>
+
+ -- Taku YASUI <tach@debian.org>  Sun, 16 Aug 2015 10:07:59 +0900
+
 hlbackup (6) unstable; urgency=low
 
   * Fix error when some variables are empty
